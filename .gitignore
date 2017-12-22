@@ -12,3 +12,7 @@
 ###> symfony/web-server-bundle ###
 .web-server-pid
 ###< symfony/web-server-bundle ###
+
+###> slack-to-wallabag ###
+_import
+###< slack-to-wallabag ###
