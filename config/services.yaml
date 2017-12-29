@@ -1,6 +1,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    app.excluded_channels: '%env(APP_EXCLUDED_CHANNELS)%'
 
 services:
     # default configuration for services in *this* file
@@ -25,3 +26,20 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    stw.import_helper.slack_users:
+        class: App\Services\Slack\UsersImportHelper
+        public: true
+        arguments: ["@doctrine.orm.entity_manager", "%kernel.project_dir%"]
+
+    stw.import_helper.slack_links:
+        class: App\Services\Slack\LinksImportHelper
+        public: true
+        arguments: ["@doctrine.orm.entity_manager", "%kernel.project_dir%"]
+
+    stw.import_helper.full_import:
+        class: App\Services\Slack\FullImportHelper
+        public: true
+        arguments: ["@doctrine.orm.entity_manager", "%kernel.project_dir%"]
+        calls:
+            - [setSlackUsersImportHelper, ["@stw.import_helper.slack_users"]]
+            - [setSlackLinksImportHelper, ["@stw.import_helper.slack_links"]]
