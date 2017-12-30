@@ -68,12 +68,16 @@ class ImportSlackFullExportCommand extends ContainerAwareCommand
         $io = new SymfonyStyle($input, $output);
         $archive = $input->getArgument('archive');
         $folder = $input->getOption('folder') ?? '';
+        $doRemoveFolderAfterImport = false;
 
         // Check folder
         if (empty($folder)) {
             // Generate folder name from archive name
             $zipPathInfo = pathinfo($archive);
             $folder = $zipPathInfo['dirname'].'/'.$zipPathInfo['filename'];
+
+            // And remove folder after import
+            $doRemoveFolderAfterImport = true;
         }
 
         // Do unzip archive
@@ -113,7 +117,7 @@ class ImportSlackFullExportCommand extends ContainerAwareCommand
         }
 
         // Remove extract folder
-        if (!FileUtils::removeDirectory($folder)) {
+        if ($doRemoveFolderAfterImport && !FileUtils::removeDirectory($folder)) {
             $io->error("Can't remove folder");
             return;
         }
