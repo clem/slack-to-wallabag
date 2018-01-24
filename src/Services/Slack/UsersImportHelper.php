@@ -14,6 +14,8 @@ class UsersImportHelper extends ImportHelper
      *
      * @param string $file - App root relative path to file
      *
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
      * @return bool - True if import was made, false if an error occurred
      */
     public function importSlackUsersJsonFile($file) : bool
@@ -30,13 +32,14 @@ class UsersImportHelper extends ImportHelper
     /**
      * Import a given users list
      *
-     * @throws \InvalidArgumentException
-     *
      * @param array $usersList - Users list to import
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @return bool - True on import success
      */
-    private function importUsersList(array $usersList) : bool
+    public function importUsersList(array $usersList) : bool
     {
         // Check JSON content
         if (!is_array($usersList) || empty($usersList)) {
@@ -44,7 +47,6 @@ class UsersImportHelper extends ImportHelper
         }
         // Initialize
         $currentUsersIds = $this->em->getRepository('App:SlackUser')->getUsersSlackIds();
-
 
         // Loop on list of users
         foreach ($usersList as $rawUser) {

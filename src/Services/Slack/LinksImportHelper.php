@@ -2,10 +2,13 @@
 
 namespace App\Services\Slack;
 
+use Doctrine\ORM\OptimisticLockException;
+
 use App\Entity\SlackLink;
 use App\Entity\SlackUser;
 use App\Repository\SlackLinkRepository;
 use App\Repository\SlackUserRepository;
+use App\Services\Utils\StringUtils;
 
 /**
  * LinksImportHelper
@@ -48,6 +51,8 @@ class LinksImportHelper extends ImportHelper
      * @param string $file - App root relative path to file
      * @param string $channel - Message's channel
      *
+     * @throws OptimisticLockException
+     *
      * @return bool - True if import was made, false if an error occurred
      */
     public function importSlackLinksFromMessagesFile($file, $channel = null) : bool
@@ -69,6 +74,8 @@ class LinksImportHelper extends ImportHelper
      *
      * @param string $folder - Folder to parse
      * @param array $options - Import options
+     *
+     * @throws OptimisticLockException
      *
      * @return bool
      */
@@ -97,6 +104,36 @@ class LinksImportHelper extends ImportHelper
             } catch (\InvalidArgumentException $exception) {
                 continue;
             }
+        }
+
+        // Return status
+        return true;
+    }
+
+    /**
+     * Import Slack links
+     *
+     * @param array $links - List of links
+     * @param string $channel - Channel's name
+     * @param array $options - Options
+     *
+     * @return boolean - True on import success
+     */
+    public function importSlackLinks(array $links, $channel = null, array $options = []) : bool
+    {
+        // Initialize
+        $this->initializeHelperVariables('', $channel);
+
+        try {
+            // Convert messages to objects as we use objects here
+            foreach ($links as $linkKey => $link) {
+                $links[$linkKey] = (object) $link;
+            }
+
+            // Import links from messages list
+            $this->importLinksFromMessagesList($links, $options);
+        } catch (OptimisticLockException $e) {
+            return false;
         }
 
         // Return status
@@ -159,6 +196,7 @@ class LinksImportHelper extends ImportHelper
      * Import links contained in a given messages list
      *
      * @throws \InvalidArgumentException
+     * @throws OptimisticLockException
      *
      * @param array $messagesList - Messages list to import
      * @param array $options - Import options

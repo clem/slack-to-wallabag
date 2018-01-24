@@ -2,6 +2,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.excluded_channels: '%env(APP_EXCLUDED_CHANNELS)%'
+    app.import_only_user_links: '%env(APP_IMPORT_ONLY_USER_LINKS)%'
+    app.slack_api.oauth_token: '%env(SLACK_OAUTH_ACCESS_TOKEN)%'
+    app.slack_api.base_url: '%env(SLACK_API_BASE_URL)%'
 
 services:
     # default configuration for services in *this* file
@@ -43,3 +46,17 @@ services:
         calls:
             - [setSlackUsersImportHelper, ["@stw.import_helper.slack_users"]]
             - [setSlackLinksImportHelper, ["@stw.import_helper.slack_links"]]
+
+    stw.import_helper.api_import:
+        class: App\Services\Slack\ApiImportHelper
+        public: true
+        arguments:
+            - '@stw.crawl_helper.slack'
+            - '@stw.import_helper.slack_links'
+            - '@stw.import_helper.slack_users'
+
+    stw.crawl_helper.slack:
+        class: App\Services\Slack\CrawlHelper
+        public: true
+        arguments: ['%app.slack_api.oauth_token%', '%app.excluded_channels%']
+
