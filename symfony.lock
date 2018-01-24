@@ -56,6 +56,9 @@
     "doctrine/orm": {
         "version": "v2.5.14"
     },
+    "j7mbo/twitter-api-php": {
+        "version": "1.0.6"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
