@@ -12,7 +12,8 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/orm-pack": "^1.0",
         "symfony/twig-bundle": "^4.0",
-        "symfony/yaml": "^4.0"
+        "symfony/yaml": "^4.0",
+        "wrapi/slack": "^0.1.6"
     },
     "require-dev": {
         "symfony/debug-bundle": "^4.0",
