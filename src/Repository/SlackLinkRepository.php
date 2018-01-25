@@ -19,9 +19,9 @@ class SlackLinkRepository extends ServiceEntityRepository
     /**
      * Get existing links list
      *
-     * @return array
+     * @return array - Links urls list
      */
-    public function getAllLinksUrls()
+    public function getAllLinksUrls() : array
     {
         // Initialize
         $links = $this->createQueryBuilder('l')
