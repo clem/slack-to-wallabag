@@ -52,4 +52,30 @@ class StringUtils
         // Return cleaned text
         return $text;
     }
+
+    /**
+     * Clean a given string: remove links, emojis and line-returns
+     *
+     * @param string $string - String to clean
+     *
+     * @return string - Cleaned string
+     */
+    public static function cleanStringForDatabase($string) : string
+    {
+        // Remove link(s)
+        $stringToClean = preg_replace('/https?:\\/\\/[^\\s]*/im', '', $string);
+
+        // Remove Emojis
+        $stringToClean = self::removeEmojiFromText($stringToClean);
+
+        // Clean to have a 255 max-length string without line-returns
+        $stringToClean = str_replace("\n", '', $stringToClean);
+        if (strlen($stringToClean) >= 255) {
+            // Trim title
+            $stringToClean = substr($stringToClean, 0, 250).'...';
+        }
+
+        // Return cleaned title
+        return trim($stringToClean);
+    }
 }

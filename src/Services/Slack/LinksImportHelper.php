@@ -454,7 +454,7 @@ class LinksImportHelper extends ImportHelper
     {
         // Check for title
         if (isset($attachment->title)) {
-            return $this->cleanTitleString($attachment->title);
+            return StringUtils::cleanStringForDatabase($attachment->title);
         }
 
         // Check for text
@@ -470,33 +470,7 @@ class LinksImportHelper extends ImportHelper
         $titleToClean = str_replace($tags, '', $titleToClean);
 
         // Return cleaned title
-        return $this->cleanTitleString($titleToClean);
-    }
-
-    /**
-     * Clean a given title string
-     *
-     * @param string $title - Title to clean
-     *
-     * @return string - Cleaned title
-     */
-    private function cleanTitleString($title) : string
-    {
-        // Remove link(s)
-        $titleToClean = preg_replace($this->checkLinkRegExp, '', $title);
-
-        // Remove Emojis
-        $titleToClean = StringUtils::removeEmojiFromText($titleToClean);
-
-        // Clean to have a 255 max-length string without line-returns
-        $titleToClean = str_replace("\n", '', $titleToClean);
-        if (strlen($titleToClean) >= 255) {
-            // Trim title
-            $titleToClean = substr($titleToClean, 0, 250).'...';
-        }
-
-        // Return cleaned title
-        return trim($titleToClean);
+        return StringUtils::cleanStringForDatabase($titleToClean);
     }
 
     /**
