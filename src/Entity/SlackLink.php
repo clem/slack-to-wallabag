@@ -29,6 +29,11 @@ class SlackLink
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $realUrl;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $title;
 
     /**
@@ -107,6 +112,22 @@ class SlackLink
     public function setUrl($url)
     {
         $this->url = $url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRealUrl()
+    {
+        return $this->realUrl;
+    }
+
+    /**
+     * @param mixed $realUrl
+     */
+    public function setRealUrl($realUrl) : void
+    {
+        $this->realUrl = $realUrl;
     }
 
     /**
