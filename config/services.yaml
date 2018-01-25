@@ -5,6 +5,10 @@ parameters:
     app.import_only_user_links: '%env(APP_IMPORT_ONLY_USER_LINKS)%'
     app.slack_api.oauth_token: '%env(SLACK_OAUTH_ACCESS_TOKEN)%'
     app.slack_api.base_url: '%env(SLACK_API_BASE_URL)%'
+    app.twitter_api.oauth_access_token: '%env(TWITTER_OAUTH_ACCESS_TOKEN)%'
+    app.twitter_api.oauth_access_token_secret: '%env(TWITTER_OAUTH_ACCESS_TOKEN_SECRET)%'
+    app.twitter_api.consumer_key: '%env(TWITTER_CONSUMER_KEY)%'
+    app.twitter_api.consumer_secret: '%env(TWITTER_CONSUMER_SECRET)%'
 
 services:
     # default configuration for services in *this* file
@@ -60,3 +64,13 @@ services:
         public: true
         arguments: ['%app.slack_api.oauth_token%', '%app.excluded_channels%']
 
+    stw.twitter.links_update_helper:
+        class: App\Services\Twitter\LinksUpdateHelper
+        public: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            -
+                oauth_access_token: '%app.twitter_api.oauth_access_token%'
+                oauth_access_token_secret: '%app.twitter_api.oauth_access_token_secret%'
+                consumer_key: '%app.twitter_api.consumer_key%'
+                consumer_secret: '%app.twitter_api.consumer_secret%'

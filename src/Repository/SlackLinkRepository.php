@@ -35,4 +35,24 @@ class SlackLinkRepository extends ServiceEntityRepository
             return $link->getUrl();
         }, $links);
     }
+
+    /**
+     * Get all Twitter links with an empty title
+     *
+     * @param int $limit - Max returned results
+     *                   - 900 as default as it's Twitter API rate limit (for 15 minutes)
+     *
+     * @return array - Twitter links
+     */
+    public function getTwitterLinksWithoutTitle($limit = 900) : array
+    {
+        return $this->createQueryBuilder('l')
+                      ->where('l.url LIKE :twitter')
+                      ->setParameter('twitter', '%twitter.com%')
+                      ->andWhere('l.title IS NULL OR l.title = :empty_string')
+                      ->setParameter('empty_string', '')
+                      ->setMaxResults($limit)
+                      ->getQuery()
+                      ->getResult();
+    }
 }
