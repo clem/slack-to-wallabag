@@ -9,6 +9,11 @@ parameters:
     app.twitter_api.oauth_access_token_secret: '%env(TWITTER_OAUTH_ACCESS_TOKEN_SECRET)%'
     app.twitter_api.consumer_key: '%env(TWITTER_CONSUMER_KEY)%'
     app.twitter_api.consumer_secret: '%env(TWITTER_CONSUMER_SECRET)%'
+    app.wallabag_api.base_url: '%env(WALLABAG_API_URL)%'
+    app.wallabag_api.client_id: '%env(WALLABAG_CLIENT_ID)%'
+    app.wallabag_api.client_secret: '%env(WALLABAG_CLIENT_SECRET)%'
+    app.wallabag_api.user_username: '%env(WALLABAG_USER_USERNAME)%'
+    app.wallabag_api.user_password: '%env(WALLABAG_USER_PASSWORD)%'
 
 services:
     # default configuration for services in *this* file
@@ -74,3 +79,16 @@ services:
                 oauth_access_token_secret: '%app.twitter_api.oauth_access_token_secret%'
                 consumer_key: '%app.twitter_api.consumer_key%'
                 consumer_secret: '%app.twitter_api.consumer_secret%'
+
+    stw.export_helper.wallabag:
+        class: App\Services\Wallabag\ExportHelper
+        public: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            -
+                api_base_url: '%app.wallabag_api.base_url%'
+                client_id: '%app.wallabag_api.client_id%'
+                client_secret: '%app.wallabag_api.client_secret%'
+                user_username: '%app.wallabag_api.user_username%'
+                user_password: '%app.wallabag_api.user_password%'
+
