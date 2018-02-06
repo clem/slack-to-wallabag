@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="imported-links">
+          <source>Imported links</source>
+          <target>Imported links</target>
+      </trans-unit>
+      <trans-unit id="exported-links">
+        <source>Exported links</source>
+        <target>Exported links</target>
+      </trans-unit>
+      <trans-unit id="total-links">
+        <source>Total links</source>
+        <target>Total links</target>
+      </trans-unit>
+      <trans-unit id="total-users">
+        <source>Total users</source>
+        <target>Total users</target>
+      </trans-unit>
+      <trans-unit id="channels-list-with-total-links">
+          <source>Channels list with total links</source>
+          <target>Channels list with total links</target>
+      </trans-unit>
+      <trans-unit id="made-with">
+          <source>Made with</source>
+          <target>Made with</target>
+      </trans-unit>
+      <trans-unit id="near-paris-by">
+          <source>near Paris by</source>
+          <target>near Paris by</target>
+      </trans-unit>
+      <trans-unit id="project-available-on-github">
+          <source>Project available on Github</source>
+          <target>Project available on Github</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

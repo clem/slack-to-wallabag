@@ -55,4 +55,64 @@ class SlackLinkRepository extends ServiceEntityRepository
                       ->getQuery()
                       ->getResult();
     }
+
+    /**
+     * Count all links
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return mixed - Total links number
+     */
+    public function countAll()
+    {
+        return $this->createQueryBuilder('l')
+            ->select('count(l.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Get channels list with total links
+     *
+     * @return array - Channels list with total links
+     */
+    public function countByChannel()
+    {
+        return $this->createQueryBuilder('l')
+            ->select('l.channel')
+            ->addSelect('count(l.id) AS total')
+            ->groupBy('l.channel')
+            ->orderBy('total', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Count links by a given date field
+     *
+     * @param string $dateField - Date field
+     * @param int $maxDays - Max returned days
+     *
+     * @return array - Days list with total related links
+     */
+    public function countByDate($dateField = 'createdAt', $maxDays = 0)
+    {
+        // Initialize
+        $minDate = date('Y-m-d', 0);
+
+        // Check max days
+        if ($maxDays) {
+            $minDate = date('Y-m-d', strtotime(($maxDays * -1).' days'));
+        }
+
+        // Return executed query
+        return $this->createQueryBuilder('l')
+                    ->select('DATE(l.'.$dateField.') AS day, COUNT(DISTINCT l.id) AS total')
+                    ->where('l.'.$dateField.' > :min_date')
+                    ->setParameter('min_date', $minDate)
+                    ->groupBy('day')
+                    ->getQuery()
+                    ->getResult();
+    }
 }

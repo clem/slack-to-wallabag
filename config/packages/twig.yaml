@@ -2,3 +2,6 @@ twig:
     paths: ['%kernel.project_dir%/templates']
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        app_home_slack_link: '%app.home.slack_link%'
+        app_home_wallabag_link: '%app.home.wallabag_link%'

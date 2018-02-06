@@ -64,4 +64,20 @@ class SlackUserRepository extends ServiceEntityRepository
         // Return users list
         return $usersList;
     }
+
+    /**
+     * Count all users
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return mixed
+     */
+    public function countAll()
+    {
+        return $this->createQueryBuilder('u')
+                    ->select('count(u.id)')
+                    ->getQuery()
+                    ->getSingleScalarResult();
+    }
 }

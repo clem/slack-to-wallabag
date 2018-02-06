@@ -50,3 +50,6 @@ It will retrieve users and public messages lists, using the main configuration f
 
 - Add documentation on 'how to deploy on Heroku'
 - Add documentation on all commands
+- Put all the Frappe Chart logic in a dedicated service and template
+
+

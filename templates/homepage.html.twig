@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'messages' %}
+
+{% block stylesheets %}
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css' />
+  {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+  <script src="https://unpkg.com/frappe-charts@0.0.8/dist/frappe-charts.min.iife.js"></script>
+  <script type="text/javascript">
+    /* globals Chart: true */
+    // Javascript
+    new Chart({
+      parent: "#chart",
+      title: '',
+      data: {
+        labels: [{% for day in created_links|keys %}'{{ day|date('m-d') }}'{{ not loop.last ? ',' : '' }}{% endfor %}],
+        datasets: [{
+          title: "{{ 'Imported links'|trans }}",
+          values: [{% for day_total in created_links %}{{ day_total ~ (not loop.last ? ',' : '') }}{% endfor %}]
+        }, {
+          title: "{{ 'Exported links'|trans }}",
+          values: [{% for day_total in exported_links %}{{ day_total ~ (not loop.last ? ',' : '') }}{% endfor %}]
+        }]
+      },
+      type: 'bar',
+      height: 320,
+      colors: ['green', 'light-green']
+    });
+  </script>
+{% endblock %}
+
+{% block body %}
+  <div class="content-wrapper">
+    <div class="content">
+      <h1>
+        <a href="{{ app_home_slack_link }}" class="logo slack">Slack</a> <span class="arrow">⇒</span>
+        <a href="{{ app_home_wallabag_link }}" class="logo wallabag">Wallabag</a>
+      </h1>
+      <div class="grid-container">
+        <div class="column large-column">
+          <div class="column-content column-chart-content">
+            <div id="chart"></div>
+          </div>
+        </div>
+        <div class="columns-container">
+          <div class="column">
+            <div class="vertical-grid">
+              <div class="row">
+                <div class="row-content">
+                  <h2>{{ 'Total links'|trans }}</h2>
+                  <strong class="bigger">{{ total_links }}</strong>
+                </div>
+              </div>
+              <div class="row">
+                <div class="row-content">
+                  <h2>{{ 'Total users'|trans }}</h2>
+                  <strong class="bigger">{{ total_users }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column large-column">
+            <div class="column-content">
+              <h2>{{ 'Channels list with total links'|trans }}</h2>
+              <ul class="channels-list">
+                {% for channel_info in channels_info %}
+                  <li>
+                    <strong>#{{ channel_info.channel}}</strong>
+                    <em>{{ channel_info.total }}</em>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        {{ 'Made with'|trans }} <span class="heart">♥</span> {{ 'near Paris by'|trans }}
+        <a href="https://clementdelmas.fr">Clément Delmas</a>
+        <span class="mobile-separator">|</span>
+        <a href="https://github.com/clem/slack-to-wallabag">
+          {{ 'Project available on Github'|trans }}
+        </a>
+      </footer>
+    </div>
+  </div>
+{% endblock %}
+
