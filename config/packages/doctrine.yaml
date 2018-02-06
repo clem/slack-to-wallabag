@@ -7,10 +7,14 @@ parameters:
 
 doctrine:
     dbal:
-        # configure these for your database server
-        driver: 'pdo_mysql'
-        server_version: '5.7'
-        charset: utf8mb4
+        # Use PostgreSQL
+        driver: 'pdo_pgsql'
+        charset: utf8
+
+        # Switch with the following lines if you want to use MySQL instead
+        # driver: 'pdo_mysql'
+        # server_version: '5.7'
+        # charset: utf8mb4
 
         # With Symfony 3.3, remove the `resolve:` prefix
         url: '%env(resolve:DATABASE_URL)%'
