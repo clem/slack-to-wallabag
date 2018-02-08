@@ -32,7 +32,7 @@ class DefaultController extends Controller
         $getExportedLinks = ArrayUtils::formatTotalArray($getExportedLinks);
         $createdLinks = [];
         $exportedLinks = [];
-        for ($i = $displayedDays; $i > 0; $i--) {
+        for ($i = ($displayedDays - 1); $i === 0; $i--) {
             // Initialize
             $dayDate = date('Y-m-d', strtotime((-1 * $i).' days'));
 
