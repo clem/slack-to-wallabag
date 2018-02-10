@@ -1,3 +1,11 @@
+filter:
+    excluded_paths:
+        - 'app/*'
+        - 'tests/*'
+        - 'bin/*'
+        - '*.min.js'
+        - 'web/assets/vendor/*'
+        - 'var/'
 checks:
     php:
         verify_property_names: true
@@ -133,6 +141,29 @@ checks:
 tools:
     external_code_coverage:
         timeout: 600
+
+build:
+    dependencies:
+        before:
+            - mysql -uroot -e 'CREATE DATABASE slacktowallabag'
+
+        # Runs before inferred commands
+        override:
+            - 'composer install --no-interaction'
+    tests:
+        override:
+            - 'vendor/phpunit/phpunit/phpunit'
+
+    environment:
+        timezone: Europe/Paris
+        postgresql: false
+        rabbitmq: false
+        mysql: 5.7
+        redis: false
+        php:
+            version: 7.1
+            ini:
+                'date.timezone': 'Europe/Paris'
 
 build_failure_conditions:
     - 'elements.rating(<= D).new.exists'
