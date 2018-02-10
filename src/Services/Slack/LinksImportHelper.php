@@ -338,7 +338,7 @@ class LinksImportHelper extends ImportHelper
             return $links[1];
         }
 
-        // @todo: Handle the case when a message contains multiple links
+        // Return error
         return '';
     }
 

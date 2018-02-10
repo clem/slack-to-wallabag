@@ -225,4 +225,5 @@ It has the following parameter:
 
 ## Todo
 
+- In LinksImportHelper::getLinkUrlFromMessage(), handle the case when a message contains multiple links
 - Put all the Frappe Chart logic in a dedicated service and template
