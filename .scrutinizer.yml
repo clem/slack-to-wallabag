@@ -143,17 +143,6 @@ tools:
         timeout: 600
 
 build:
-    dependencies:
-        before:
-            - mysql -uroot -e 'CREATE DATABASE slacktowallabag'
-
-        # Runs before inferred commands
-        override:
-            - 'composer install --no-interaction'
-    tests:
-        override:
-            - 'vendor/phpunit/phpunit/phpunit'
-
     environment:
         timezone: Europe/Paris
         postgresql: false
