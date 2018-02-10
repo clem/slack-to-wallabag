@@ -139,11 +139,11 @@ checks:
         function_in_camel_caps: true
 
 tools:
-    external_code_coverage:
-        # As there is no Unit test (for the moment),
-        # temporary disable code coverage timeout
-        # Default value is `600`
-        timeout: 1
+    # As there is no Unit test (for the moment),
+    # temporary disable code coverage timeout
+    # Default value is `600`
+    # timeout: 1
+    external_code_coverage: false
 
 build:
     environment:
