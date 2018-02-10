@@ -222,8 +222,3 @@ It will open a JSON file and import all contained users.
 It has the following parameter:
 
 - **parameter** `file` - Path to JSON file to import
-
-## Todo
-
-- In LinksImportHelper::getLinkUrlFromMessage(), handle the case when a message contains multiple links
-- Put all the Frappe Chart logic in a dedicated service and template
