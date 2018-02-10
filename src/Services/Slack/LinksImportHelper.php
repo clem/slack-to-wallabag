@@ -83,11 +83,7 @@ class LinksImportHelper extends ImportHelper
     {
         // Initialize
         $this->initializeHelperVariables($folder);
-
-        // Check root dir
-        if (strpos($folder, $this->appRootDir) === false) {
-            $folder = $this->appRootDir.'/'.$folder;
-        }
+        $folder = $this->addRootDirIfNeeded($folder);
 
         // Get files in folder
         $files = glob($folder.'/*.json');

@@ -9,15 +9,12 @@ use Doctrine\ORM\EntityManager;
  */
 class ImportHelper
 {
+    use CheckFolderTrait;
+
     /**
      * @var EntityManager
      */
     protected $em;
-
-    /**
-     * @var string
-     */
-    protected $appRootDir;
 
     /**
      * UsersImportHelper constructor.
@@ -44,12 +41,7 @@ class ImportHelper
     protected function getJsonFileContent($file)
     {
         // Initialize
-        $jsonFile = $file;
-
-        // Check file
-        if (strpos($jsonFile, $this->appRootDir) === false) {
-            $jsonFile = $this->appRootDir.'/'.$file;
-        }
+        $jsonFile = $this->addRootDirIfNeeded($file);
 
         // Check JSON file
         if (!file_exists($jsonFile) || !is_readable($jsonFile)) {

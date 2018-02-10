@@ -52,13 +52,7 @@ class FullImportHelper extends ImportHelper
     public function importAllFromFolder($importFolder, array $options = []) : bool
     {
         // Initialize
-        $folder = $importFolder;
-
-        // Check folder
-        if (strpos($importFolder, $this->appRootDir) === false) {
-            // Initialize
-            $folder = $this->appRootDir.'/'.$importFolder;
-        }
+        $folder = $this->addRootDirIfNeeded($importFolder);
 
         // Check folder
         if (!file_exists($folder) || !is_readable($folder)) {
@@ -92,13 +86,7 @@ class FullImportHelper extends ImportHelper
     public function importAllChannelsFromFolder($importFolder, array $options = []) : bool
     {
         // Initialize
-        $folder = $importFolder;
-
-        // Check folder
-        if (strpos($importFolder, $this->appRootDir) === false) {
-            // Initialize
-            $folder = $this->appRootDir.'/'.$importFolder;
-        }
+        $folder = $this->addRootDirIfNeeded($importFolder);
 
         // Check folder
         if (!file_exists($folder) || !is_readable($folder)) {
