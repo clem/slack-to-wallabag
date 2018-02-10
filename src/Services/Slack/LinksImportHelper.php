@@ -3,7 +3,6 @@
 namespace App\Services\Slack;
 
 use Doctrine\ORM\OptimisticLockException;
-
 use App\Entity\SlackLink;
 use App\Entity\SlackUser;
 use App\Repository\SlackLinkRepository;

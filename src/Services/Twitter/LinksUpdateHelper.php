@@ -106,7 +106,7 @@ class LinksUpdateHelper
      *
      * @param SlackLink $link - Link to get tweet's id from
      *
-     * @return mixed - Tweet id or false on error
+     * @return false|int - Tweet id or false on error
      */
     public function getTweetIdFromLink(SlackLink $link)
     {
@@ -120,7 +120,7 @@ class LinksUpdateHelper
         }
 
         // Return found id
-        return $urlInfo[2];
+        return (int) $urlInfo[2];
     }
 
     /**
@@ -128,7 +128,7 @@ class LinksUpdateHelper
      *
      * @param \StdClass $tweetResponse - Tweet response
      *
-     * @return mixed
+     * @return null|string
      */
     private function getTitleFromTweet($tweetResponse)
     {
@@ -158,7 +158,7 @@ class LinksUpdateHelper
      * @param boolean $returnAsString - Return response as string?
      * @param string $listSeparator - String list separator
      *
-     * @return mixed - List of hashtags as array or as string
+     * @return null|string|array - List of hashtags as array or as string
      */
     private function getTweetHashtags($tweetResponse, $returnAsString = true, $listSeparator = ', ')
     {
@@ -188,7 +188,7 @@ class LinksUpdateHelper
     /**
      * @param \StdClass $tweetResponse - Tweet response
      *
-     * @return mixed - Image url or null if no image was found
+     * @return string|null - Image url or null if no image was found
      */
     private function getTweetImageUrl($tweetResponse)
     {
