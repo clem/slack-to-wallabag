@@ -18,12 +18,12 @@ class LinksImportHelper extends ImportHelper
     /**
      * @var string
      */
-    private $checkLinkRegExp = "/<(https?:\\/\\/[^>]*)>/im";
+    private $checkLinkRegExp = '/<(https?:\\/\\/[^>]*)>/im';
 
     /**
      * @var string
      */
-    private $getTagRegExp = "/(#[^\s]*)\s*/";
+    private $getTagRegExp = '/(#[^\s]*)\s*/';
 
     /**
      * @var string
@@ -49,7 +49,7 @@ class LinksImportHelper extends ImportHelper
      * Import links list from a given JSON file (containing a list of Slack messages)
      *
      * @param string $file - App root relative path to file
-     * @param string $channel - Message's channel
+     * @param string|null $channel - Message's channel
      *
      * @throws OptimisticLockException
      *
@@ -110,7 +110,7 @@ class LinksImportHelper extends ImportHelper
      * Import Slack links
      *
      * @param array $links - List of links
-     * @param string $channel - Channel's name
+     * @param string|null $channel - Channel's name
      * @param array $options - Options
      *
      * @return boolean - True on import success
@@ -140,7 +140,7 @@ class LinksImportHelper extends ImportHelper
      * Initialize helper variables
      *
      * @param string $file - App root relative path to file
-     * @param string $channel - Message's channel
+     * @param string|null $channel - Message's channel
      */
     private function initializeHelperVariables($file, $channel = null)
     {
@@ -161,7 +161,7 @@ class LinksImportHelper extends ImportHelper
      * Get channel's name from file name if not set
      *
      * @param string $file - Filename to parse
-     * @param string $channel - Existing channel
+     * @param string|null $channel - Existing channel
      *
      * @return string - Channel's name
      */
