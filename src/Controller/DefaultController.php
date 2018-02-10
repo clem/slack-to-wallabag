@@ -22,8 +22,15 @@ class DefaultController extends Controller
         $linkRepository = $em->getRepository('App:SlackLink');
         $userRepository = $em->getRepository('App:SlackUser');
 
+        // Get total links
+        $totalLinks = (int) $linkRepository->countAll();
+
+        // Check total links
+        if ($totalLinks === 0) {
+            return $this->render('empty-homepage.html.twig');
+        }
+
         // Get links info
-        $totalLinks = $linkRepository->countAll();
         $getCreatedLinks = $linkRepository->countByDate('createdAt', $displayedDays);
         $getExportedLinks = $linkRepository->countByDate('exportedAt', $displayedDays);
 

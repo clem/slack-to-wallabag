@@ -34,6 +34,38 @@
           <source>Project available on Github</source>
           <target>Project available on Github</target>
       </trans-unit>
+      <trans-unit id="oops">
+          <source>Oops!</source>
+          <target>Oops!</target>
+      </trans-unit>
+      <trans-unit id="no-links-in-database">
+          <source>You don't have any link in your database!</source>
+          <target>You don't have any link in your database!</target>
+      </trans-unit>
+      <trans-unit id="what-to-do-now">
+          <source>What to do now?</source>
+          <target>What to do now?</target>
+      </trans-unit>
+      <trans-unit id="check-everything-is-alright">
+          <source>Check everything is alright</source>
+          <target>Check everything is alright</target>
+      </trans-unit>
+      <trans-unit id="post-links-on-slack">
+          <source>Post links on Slack</source>
+          <target>Post links on Slack</target>
+      </trans-unit>
+      <trans-unit id="launch-commands-or-check-your-scheduler">
+          <source>Launch commands or check your scheduler</source>
+          <target>Launch commands or check your scheduler</target>
+      </trans-unit>
+      <trans-unit id="once-done-refresh-this-page">
+          <source>Once done, refresh this page</source>
+          <target>Once done, refresh this page</target>
+      </trans-unit>
+      <trans-unit id="say-hi-and-ask-for-help-if-needed">
+          <source>Say %twitterlinkstart%hi%twitterlinkend%! (and ask for help if needed)</source>
+          <target>Say %twitterlinkstart%hi%twitterlinkend%! (and ask for help if needed)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

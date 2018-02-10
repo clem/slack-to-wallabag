@@ -1,0 +1,27 @@
+{% extends '/base.html.twig' %}
+{% trans_default_domain 'messages' %}
+
+{% block content %}
+  <div class="empty-content-column">
+    <img src="https://media.giphy.com/media/FrLKYbLI0djKU/giphy.gif" alt="{{ 'Oops!'|trans }}" />
+  </div>
+  <div class="empty-content-column">
+    <h2>{{ 'Oops!'|trans }}</h2>
+    <p>{{ "You don't have any link in your database!"|trans }}</p>
+    <h3>{{ 'What to do now?'|trans }}</h3>
+    <ol>
+      <li>{{ 'Check everything is alright'|trans }}</li>
+      <li>{{ 'Post links on Slack'|trans }}</li>
+      <li>{{ 'Launch commands or check your scheduler'|trans }}</li>
+      <li>{{ 'Once done, refresh this page'|trans }}</li>
+      <li>
+        {{
+          'Say %twitterlinkstart%hi%twitterlinkend%! (and ask for help if needed)'|trans({
+            '%twitterlinkstart%': '<a href="https://twitter.com/clem">',
+            '%twitterlinkend%': '</a>'
+          })|raw
+        }}
+      </li>
+    </ol>
+  </div>
+{% endblock content %}

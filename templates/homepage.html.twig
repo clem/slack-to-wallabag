@@ -31,59 +31,41 @@
   </script>
 {% endblock %}
 
-{% block body %}
-  <div class="content-wrapper">
-    <div class="content">
-      <h1>
-        <a href="{{ app_home_slack_link }}" class="logo slack">Slack</a> <span class="arrow">⇒</span>
-        <a href="{{ app_home_wallabag_link }}" class="logo wallabag">Wallabag</a>
-      </h1>
-      <div class="grid-container">
-        <div class="column large-column">
-          <div class="column-content column-chart-content">
-            <div id="chart"></div>
+{% block content %}
+  <div class="column large-column">
+    <div class="column-content column-chart-content">
+      <div id="chart"></div>
+    </div>
+  </div>
+  <div class="columns-container">
+    <div class="column">
+      <div class="vertical-grid">
+        <div class="row">
+          <div class="row-content">
+            <h2>{{ 'Total links'|trans }}</h2>
+            <strong class="bigger">{{ total_links }}</strong>
           </div>
         </div>
-        <div class="columns-container">
-          <div class="column">
-            <div class="vertical-grid">
-              <div class="row">
-                <div class="row-content">
-                  <h2>{{ 'Total links'|trans }}</h2>
-                  <strong class="bigger">{{ total_links }}</strong>
-                </div>
-              </div>
-              <div class="row">
-                <div class="row-content">
-                  <h2>{{ 'Total users'|trans }}</h2>
-                  <strong class="bigger">{{ total_users }}</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column large-column">
-            <div class="column-content">
-              <h2>{{ 'Channels list with total links'|trans }}</h2>
-              <ul class="channels-list">
-                {% for channel_info in channels_info %}
-                  <li>
-                    <strong>#{{ channel_info.channel}}</strong>
-                    <em>{{ channel_info.total }}</em>
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
+        <div class="row">
+          <div class="row-content">
+            <h2>{{ 'Total users'|trans }}</h2>
+            <strong class="bigger">{{ total_users }}</strong>
           </div>
         </div>
       </div>
-      <footer>
-        {{ 'Made with'|trans }} <span class="heart">♥</span> {{ 'near Paris by'|trans }}
-        <a href="https://clementdelmas.fr">Clément Delmas</a>
-        <span class="mobile-separator">|</span>
-        <a href="https://github.com/clem/slack-to-wallabag">
-          {{ 'Project available on Github'|trans }}
-        </a>
-      </footer>
+    </div>
+    <div class="column large-column">
+      <div class="column-content">
+        <h2>{{ 'Channels list with total links'|trans }}</h2>
+        <ul class="channels-list">
+          {% for channel_info in channels_info %}
+            <li>
+              <strong>#{{ channel_info.channel}}</strong>
+              <em>{{ channel_info.total }}</em>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
   </div>
 {% endblock %}

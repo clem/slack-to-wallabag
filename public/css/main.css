@@ -18,6 +18,7 @@ body {
     justify-items: center;
 }
 .content {
+    width: 100%;
     max-width: 1140px;
     margin: 0 auto;
 }
@@ -63,6 +64,7 @@ h1 a {
 .grid-container {
     display: flex;
     flex-flow: row;
+    justify-content: center;
 }
 .vertical-grid {
     height: 100%;
@@ -154,7 +156,27 @@ h1 a {
     color: #56B4D3;
 }
 
-
+.empty-content-column {
+    max-width: 50%;
+}
+.empty-content-column:first-child {
+    margin-right: 5%;
+}
+.empty-content-column h2 {
+    font-size: 2rem;
+    margin-top: 0;
+}
+.empty-content-column h3 {
+    margin: 2rem 0 1rem;
+}
+.empty-content-column ol {
+    padding: 0 0 0 20px;
+    margin: 0;
+    line-height: 2rem;
+}
+.empty-content-column a {
+    color: #000;
+}
 
 footer {
     margin: 30px 0;

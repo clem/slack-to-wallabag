@@ -34,6 +34,38 @@
           <source>Project available on Github</source>
           <target>Projet disponible sur Github</target>
       </trans-unit>
+      <trans-unit id="oops">
+        <source>Oops!</source>
+        <target>Oups!</target>
+      </trans-unit>
+      <trans-unit id="no-links-in-database">
+        <source>You don't have any link in your database!</source>
+        <target>Il n'y a aucun lien dans votre base de données !</target>
+      </trans-unit>
+      <trans-unit id="what-to-do-now">
+        <source>What to do now?</source>
+        <target>Et maintenant que vais-je faire ?</target>
+      </trans-unit>
+      <trans-unit id="check-everything-is-alright">
+        <source>Check everything is alright</source>
+        <target>Vérifier que tout est bien paramétré</target>
+      </trans-unit>
+      <trans-unit id="post-links-on-slack">
+        <source>Post links on Slack</source>
+        <target>Poster des liens sur Slack</target>
+      </trans-unit>
+      <trans-unit id="launch-commands-or-check-your-scheduler">
+        <source>Launch commands or check your scheduler</source>
+        <target>Lancer des commandes ou vérifier votre planificateur</target>
+      </trans-unit>
+      <trans-unit id="once-done-refresh-this-page">
+        <source>Once done, refresh this page</source>
+        <target>Une fois que c'est fait, vous pouvez rafraîchir cette page</target>
+      </trans-unit>
+      <trans-unit id="say-hi-and-ask-for-help-if-needed">
+        <source>Say %twitterlinkstart%hi%twitterlinkend%! (and ask for help if needed)</source>
+        <target>Dîtes-moi %twitterlinkstart%bonjour%twitterlinkend%! (et demandez de l'aide si besoin)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

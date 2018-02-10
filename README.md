@@ -225,7 +225,4 @@ It has the following parameter:
 
 ## Todo
 
-- Add 'empty' design on homepage if there's no link 
 - Put all the Frappe Chart logic in a dedicated service and template
-
-
