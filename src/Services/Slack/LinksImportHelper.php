@@ -298,7 +298,7 @@ class LinksImportHelper extends ImportHelper
         }
 
         // Check message content
-        if(!preg_match($this->checkLinkRegExp, $message->text)) {
+        if (!preg_match($this->checkLinkRegExp, $message->text)) {
             return false;
         }
 

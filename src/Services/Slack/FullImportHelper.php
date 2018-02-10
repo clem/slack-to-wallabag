@@ -2,6 +2,8 @@
 
 namespace App\Services\Slack;
 
+use Doctrine\ORM\OptimisticLockException;
+
 /**
  * FullImportHelper
  */
@@ -43,6 +45,8 @@ class FullImportHelper extends ImportHelper
      * @param string $importFolder - Folder to import data from
      * @param array $options - Options list
      *
+     * @throws \InvalidArgumentException
+     *
      * @return bool - True if import was made, false otherwise
      */
     public function importAllFromFolder($importFolder, array $options = []) : bool
@@ -62,8 +66,12 @@ class FullImportHelper extends ImportHelper
         }
 
         // Initialize: import users
-        $importStatus = $this->slackUsersImportHelper->importSlackUsersJsonFile($folder.'/users.json');
-        if (!$importStatus) {
+        try {
+            $importStatus = $this->slackUsersImportHelper->importSlackUsersJsonFile($folder.'/users.json');
+            if (!$importStatus) {
+                return false;
+            }
+        } catch (OptimisticLockException $e) {
             return false;
         }
 
@@ -76,6 +84,8 @@ class FullImportHelper extends ImportHelper
      *
      * @param string $importFolder - Folder to import data from
      * @param array $options - Options list
+     *
+     * @throws \InvalidArgumentException
      *
      * @return bool - True if import was made, false otherwise
      */
@@ -128,12 +138,16 @@ class FullImportHelper extends ImportHelper
             }
 
             // Import channel
-            $importStatus = $this->slackLinksImportHelper
-                                 ->importSlackLinksFromFolder(
-                                     $folder.$channel->name.'/',
-                                     $options
-                                 );
-            if (!$importStatus) {
+            try {
+                $importStatus = $this->slackLinksImportHelper
+                    ->importSlackLinksFromFolder(
+                        $folder.$channel->name.'/',
+                        $options
+                    );
+                if (!$importStatus) {
+                    return false;
+                }
+            } catch (OptimisticLockException $e) {
                 return false;
             }
         }

@@ -12,13 +12,13 @@ heroku_set="heroku config:set "
 # Parse .env file and loop on file lines
 while read l; do
   # Check for empty or comments lines
-  if [[ -z $l ]] || [[ $l == \#* ]] ;
+  if [[ -z ${l} ]] || [[ ${l} == \#* ]] ;
   then
     continue
   fi
 
   # Check for dev environment and convert to prod
-  if [[ $l == "APP_ENV=dev" ]] ;
+  if [[ ${l} == "APP_ENV=dev" ]] ;
   then
     l="APP_ENV=prod"
   fi
@@ -31,4 +31,4 @@ while read l; do
 done <.env
 
 # Execute Heroku set config
-eval "$heroku_set"
+eval "${heroku_set}"

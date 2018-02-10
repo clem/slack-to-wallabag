@@ -108,6 +108,4 @@ class ApiImportHelper
         // Return status
         return $returnStatus;
     }
-
-
 }

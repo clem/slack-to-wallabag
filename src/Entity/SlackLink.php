@@ -241,5 +241,4 @@ class SlackLink
     {
         $this->user = $user;
     }
-
 }

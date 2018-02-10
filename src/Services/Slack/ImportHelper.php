@@ -71,5 +71,4 @@ class ImportHelper
         // Return parsed JSON
         return $json;
     }
-
 }

@@ -1,6 +1,6 @@
 # Slack to Wallabag
 
-![Slack to Wallabag](./_docs/slw-logo.png)
+![Slack to Wallabag](/_docs/slw-logo.png)
 
 This project is a bridge between [Slack](https://slack.com/) and [Wallabag](https://wallabag.org/). 
 It imports/crawls all the posted links on your favorite Slack space, to a given Wallabag server.
@@ -120,7 +120,7 @@ You can now add the following jobs:
 
 Like this: 
 
-![Heroku CRONs](./_docs/heroku-jobs.png).
+![Heroku CRONs](/_docs/heroku-jobs.png).
 
 And that's it!
 
