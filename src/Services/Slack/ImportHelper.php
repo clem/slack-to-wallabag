@@ -3,6 +3,7 @@
 namespace App\Services\Slack;
 
 use Doctrine\ORM\EntityManager;
+use App\Services\Slack\Traits\CheckFolderTrait;
 
 /**
  * ImportHelper

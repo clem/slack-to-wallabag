@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Slack;
+namespace App\Services\Slack\Traits;
 
 /**
  * Trait CheckFolderTrait
