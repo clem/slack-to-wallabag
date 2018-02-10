@@ -130,9 +130,9 @@ checks:
         fix_line_ending: true
         fix_use_statements:
             remove_unused: true
-            preserve_multiple: false
-            preserve_blanklines: false
-            order_alphabetically: true
+            preserve_multiple: true
+            preserve_blanklines: true
+            order_alphabetically: false
         foreach_traversable: true
         foreach_usable_as_reference: true
         instanceof_class_exists: true
