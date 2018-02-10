@@ -2,9 +2,9 @@
 
 namespace App\Services\Twitter;
 
+use Doctrine\ORM\EntityManager;
 use App\Entity\SlackLink;
 use App\Services\Utils\StringUtils;
-use Doctrine\ORM\EntityManager;
 
 /**
  * Class LinksUpdateHelper
