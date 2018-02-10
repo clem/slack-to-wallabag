@@ -140,7 +140,10 @@ checks:
 
 tools:
     external_code_coverage:
-        timeout: 600
+        # As there is no Unit test (for the moment),
+        # temporary disable code coverage timeout
+        # Default value is `600`
+        timeout: 1
 
 build:
     environment:
