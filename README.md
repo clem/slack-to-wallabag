@@ -1,3 +1,6 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/clem/slack-to-wallabag/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/clem/slack-to-wallabag/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/clem/slack-to-wallabag/badges/build.png?b=master)](https://scrutinizer-ci.com/g/clem/slack-to-wallabag/build-status/master)
+
 # Slack to Wallabag
 
 ![Slack to Wallabag](/_docs/slw-logo.png)
