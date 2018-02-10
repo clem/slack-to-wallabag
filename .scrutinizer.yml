@@ -96,7 +96,7 @@ checks:
             max_length: '120'
         method_calls_on_non_object: true
         missing_arguments: true
-        align_assignments: true
+        align_assignments: false
         argument_type_checks: true
         assignment_of_null_return: true
         avoid_aliased_php_functions: true
