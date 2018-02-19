@@ -20,16 +20,24 @@ class CrawlHelper
     private $excludedChannels;
 
     /**
+     * @var array
+     */
+    private $importOnlyChannels;
+
+    /**
      * Main constructor
      *
      * @param string $slackOauthToken - Slack OAuth Token
      * @param string $excludedChannels - List of excluded channels (separated with comma)
+     * @param string $importOnlyChannels - List of channels (separated with comma) to import only
+     *                                     This option won't override excluded channels
      */
-    public function __construct($slackOauthToken, $excludedChannels)
+    public function __construct($slackOauthToken, $excludedChannels, $importOnlyChannels)
     {
         // Initialize
         $this->slack = new slack($slackOauthToken);
         $this->excludedChannels = explode(',', $excludedChannels);
+        $this->importOnlyChannels = explode(',', $importOnlyChannels);
     }
 
     /**
@@ -62,11 +70,13 @@ class CrawlHelper
             return $channelsList;
         }
 
-        // Check for excluded channels
-        if (!empty($this->excludedChannels)) {
+        // Check for channels filter
+        if (!empty($this->excludedChannels) || !empty($this->importOnlyChannels)) {
             // Loop on channels to excluded unwanted channels
             foreach ($channelsListResponse['channels'] as $channel) {
-                if (!in_array($channel['name'], $this->excludedChannels)) {
+                // Check if we need to import channel
+                if (!in_array($channel['name'], $this->excludedChannels)
+                || in_array($channel['name'], $this->importOnlyChannels)) {
                     $channelsList[] = $channel;
                 }
             }
