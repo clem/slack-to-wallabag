@@ -54,7 +54,7 @@ class ImportSlackFullExportCommand extends ContainerAwareCommand
                 'only-channels',
                 'c',
                 InputOption::VALUE_REQUIRED,
-                "Import only these channels and not app import only channels"
+                'Import only these channels and not app import only channels'
             )
             ->addOption(
                 'exclude-app-channels-configuration',
