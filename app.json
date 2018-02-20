@@ -1,0 +1,92 @@
+{
+  "name": "Slack To Wallabag",
+  "description": "A bridge between Slack and Wallabag",
+  "repository": "https://github.com/clem/slack-to-wallabag",
+  "keywords": [
+    "php",
+    "Slack",
+    "Wallabag"
+  ],
+  "env": {
+    "APP_ENV": {
+      "description": "Application environment (should be 'prod', unless you want to develop new features or fix bugs)",
+      "value": "prod"
+    },
+    "APP_SECRET": {
+      "description": "Your application secret",
+      "value": "A value you should change for better security!"
+    },
+    "DATABASE_URL": {
+      "description": "Your database url. By default, it's based on PostGreSQL, but you can also use MySQL",
+      "value": "postgres://db_user:db_password@127.0.0.1:3306/db_name"
+    },
+    "APP_LOCALE": {
+      "description": "Application locale. 'en' and 'fr' languages are supported",
+      "value": "en"
+    },
+    "APP_EXCLUDED_CHANNELS": {
+      "description": "List of channels (separated by comma - 'general,random') that will NOT be crawled",
+      "value": "general,random"
+    },
+    "APP_IMPORT_ONLY_USER_LINKS": {
+      "description": "Import only one user's links (and not all users links)",
+      "value": ""
+    },
+    "HOME_SLACK_LINK": {
+      "description": "Link to Slack homepage (could be any link, we don't use this link to crawl data)",
+      "value": "#"
+    },
+    "HOME_WALLABAG_LINK": {
+      "description": "Link to Wallabag homepage (could be any link, we don't use this link to export data)",
+      "value": "#"
+    },
+    "HOME_DISPLAYED_DAYS": {
+      "description": "Number of displayed days on homepage chart",
+      "value": 7
+    },
+    "SLACK_OAUTH_ACCESS_TOKEN": {
+      "description": "Your OAuth access token to Slack API",
+      "value": "XXX"
+    },
+    "SLACK_API_BASE_URL": {
+      "description": "Slack API base URL",
+      "value": "https://slack.com"
+    },
+    "WALLABAG_API_URL": {
+      "description": "The Wallabag API url",
+      "value": "http://yourwallabag.app.com/api/"
+    },
+    "WALLABAG_CLIENT_ID": {
+      "description": "Wallabag generated client ID",
+      "value": ""
+    },
+    "WALLABAG_CLIENT_SECRET": {
+      "description": "Wallabag generated client secret",
+      "value": ""
+    },
+    "WALLABAG_USER_USERNAME": {
+      "description": "Your Wallabag's username",
+      "value": ""
+    },
+    "WALLABAG_USER_PASSWORD": {
+      "description": "Your Wallabag's password",
+      "value": ""
+    },
+    "TWITTER_OAUTH_ACCESS_TOKEN": {
+      "description": "Twitter OAuth access token",
+      "value": ""
+    },
+    "TWITTER_OAUTH_ACCESS_TOKEN_SECRET": {
+      "description": "Twitter OAuth access token secret",
+      "value": ""
+    },
+    "TWITTER_CONSUMER_KEY": {
+      "description": "Your Twitter consumer key",
+      "value": ""
+    },
+    "TWITTER_CONSUMER_SECRET": {
+      "description": "Your Twitter consumer secret",
+      "value": ""
+    }
+  }
+}
