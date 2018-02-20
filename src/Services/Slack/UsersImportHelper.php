@@ -56,10 +56,13 @@ class UsersImportHelper extends ImportHelper
             }
 
             // Initialize
+            $userRealName = empty($rawUser->real_name) ? $rawUser->name : $rawUser->real_name;
+
+            // Create SlackUser
             $user = new SlackUser();
             $user->setSlackId($rawUser->id);
             $user->setUsername($rawUser->name);
-            $user->setRealName($rawUser->real_name);
+            $user->setRealName($userRealName);
 
             // Check for profile and avatar
             if (isset($rawUser->profile->image_original)) {
