@@ -46,7 +46,7 @@
     },
     "SLACK_OAUTH_ACCESS_TOKEN": {
       "description": "Your OAuth access token to Slack API",
-      "value": "XXX"
+      "value": ""
     },
     "SLACK_API_BASE_URL": {
       "description": "Slack API base URL",
