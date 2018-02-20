@@ -71,24 +71,34 @@ class CrawlHelper
         }
 
         // Filter channels list
-        $channelsList = $this->removeExcludedChannels($channelsListResponse['channels']);
-        $channelsList = $this->removeUnwantedChannels($channelsList);
+        $channelsList = $this->filterUnwantedChannels(
+            $channelsListResponse['channels'],
+            $this->excludedChannels,
+            false
+        );
+        $channelsList = $this->filterUnwantedChannels(
+            $channelsList,
+            $this->importOnlyChannels,
+            true
+        );
 
         // Return channels list
         return $channelsList;
     }
 
     /**
-     * Remove excluded channels of a given channels list
+     * Filter unwanted channels from a given channels list
      *
      * @param array $channels - Channels list to filter
+     * @param array $filter - Filter list
+     * @param bool $inArrayMustReturn - To filter, in_array must return this value
      *
-     * @return array - Updated channels
+     * @return array - Filtered channels list
      */
-    private function removeExcludedChannels(array $channels) : array
+    private function filterUnwantedChannels(array $channels, array $filter, $inArrayMustReturn = false) : array
     {
         // Check channels list
-        if (empty($channels) || empty($this->excludedChannels)) {
+        if (empty($channels) || empty($filter)) {
             return $channels;
         }
 
@@ -98,36 +108,7 @@ class CrawlHelper
         // Loop on channels list
         /* @var array $channel */
         foreach ($channels as $channel) {
-            if (!in_array($channel['name'], $this->excludedChannels)) {
-                $filteredChannels[] = $channel;
-            }
-        }
-
-        // Return filtered channels
-        return $filteredChannels;
-    }
-
-    /**
-     * Remove unwanted channels of a given channels list
-     *
-     * @param array $channels - Channels list to filter
-     *
-     * @return array - Updated channels
-     */
-    private function removeUnwantedChannels(array $channels) : array
-    {
-        // Check channels list
-        if (empty($channels) || empty($this->importOnlyChannels)) {
-            return $channels;
-        }
-
-        // Initialize
-        $filteredChannels = [];
-
-        // Loop on channels list
-        /* @var array $channel */
-        foreach ($channels as $channel) {
-            if (in_array($channel['name'], $this->importOnlyChannels)) {
+            if (in_array($channel['name'], $filter) === $inArrayMustReturn) {
                 $filteredChannels[] = $channel;
             }
         }
