@@ -263,7 +263,7 @@ class LinksImportHelper extends ImportHelper
     /**
      * Check if a given message object is valid
      *
-     * @param $message
+     * @param mixed $message - JSON message as object
      *
      * @return bool - True if message is valid, false otherwise
      */
@@ -281,7 +281,7 @@ class LinksImportHelper extends ImportHelper
     /**
      * Check if a given message contains a link
      *
-     * @param $message
+     * @param mixed $message - JSON message as object
      *
      * @return bool - True if message contains a link, false otherwise
      */
@@ -302,29 +302,22 @@ class LinksImportHelper extends ImportHelper
     }
 
     /**
-     * @param $message - JSON message as object
+     * Get link url from a given message
      *
-     * @return string - Link contained in message
+     * @param mixed $message - JSON message as object
+     *
+     * @return string - Link contained in message or and empty string on error
      */
     private function getLinkUrlFromMessage($message) : string
     {
         // Check message attachment
         if (isset($message->attachments)) {
             // Initialize
-            $attachment = $message->attachments[0];
+            $linkUrl = $this->getLinkUrlFromMessageAttachment($message);
 
-            // Check service
-            if (isset($attachment->service_name) && isset($attachment->text)) {
-                // Parse text to find url
-                preg_match($this->checkLinkRegExp, $attachment->text, $attachmentLinks);
-                if (isset($attachmentLinks[1]) && filter_var($attachmentLinks[1], FILTER_VALIDATE_URL)) {
-                    return $attachmentLinks[1];
-                }
-            }
-
-            // Get first attachment link
-            if (isset($attachment->from_url)) {
-                return $attachment->from_url;
+            // Check link url
+            if (!empty($linkUrl)) {
+                return $linkUrl;
             }
         }
 
@@ -338,6 +331,42 @@ class LinksImportHelper extends ImportHelper
         }
 
         // Return error
+        return '';
+    }
+
+    /**
+     * Get link url from a given message (with attachments)
+     *
+     * @param mixed $message - JSON message as object
+     *
+     * @return string - Link contained in message or and empty string on error
+     */
+    private function getLinkUrlFromMessageAttachment($message) : string
+    {
+        // Check message attachment
+        if (!isset($message->attachments)) {
+            // Message has no attachment
+            return '';
+        }
+
+        // Initialize
+        $attachment = $message->attachments[0];
+
+        // Check service
+        if (isset($attachment->service_name) && isset($attachment->text)) {
+            // Parse text to find url
+            preg_match($this->checkLinkRegExp, $attachment->text, $attachmentLinks);
+            if (isset($attachmentLinks[1]) && filter_var($attachmentLinks[1], FILTER_VALIDATE_URL)) {
+                return $attachmentLinks[1];
+            }
+        }
+
+        // Get first attachment link
+        if (isset($attachment->from_url)) {
+            return $attachment->from_url;
+        }
+
+        // Return empty url
         return '';
     }
 
