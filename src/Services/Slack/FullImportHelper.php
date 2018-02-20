@@ -103,12 +103,19 @@ class FullImportHelper extends ImportHelper
 
         // Get options
         $doImportArchivedChannels = $options['import_archived_channels'] ?? false;
+
+        // Check for excluded channels
         $excludedChannels = $options['excluded_channels'] ?? '';
         $channelsToExclude = explode(',', $excludedChannels);
-
-        // Check for no excluded channels
         if (empty($channelsToExclude[0])) {
             $channelsToExclude = [];
+        }
+
+        // Check for included channels
+        $importOnlyChannels = $options['only_channels'] ?? '';
+        $channelsToInclude = explode(',', $importOnlyChannels);
+        if (empty($channelsToInclude[0])) {
+            $channelsToInclude = [];
         }
 
         // Loop on channels and import wanted contents
@@ -122,6 +129,12 @@ class FullImportHelper extends ImportHelper
             // Check for excluded channels
             if (in_array($channel->name, $channelsToExclude)) {
                 // Don't import excluded channel
+                continue;
+            }
+
+            // Check for included channels
+            if (!empty($channelsToInclude) && !in_array($channel->name, $channelsToInclude)) {
+                // Don't import unwanted channel
                 continue;
             }
 

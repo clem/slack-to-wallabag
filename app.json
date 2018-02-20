@@ -28,6 +28,10 @@
       "description": "List of channels (separated by comma - 'general,random') that will NOT be crawled",
       "value": "general,random"
     },
+    "APP_IMPORT_ONLY_CHANNELS": {
+      "description": "List of channels (separated by comma) that will NOT be crawled",
+      "value": ""
+    },
     "APP_IMPORT_ONLY_USER_LINKS": {
       "description": "Import only one user's links (and not all users links)",
       "value": ""

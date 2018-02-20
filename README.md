@@ -23,6 +23,7 @@ Here are the different configurations variables used in the `.env.dist` file.
 
 ### Slack-to-Wallabag
 
+- `APP_IMPORT_ONLY_CHANNELS`: List of channels (separated by comma) that will ONLY be crawled (and not the whole list)
 - `APP_EXCLUDED_CHANNELS`: List of channels (separated by comma - 'general,random') that will NOT be crawled
 - `APP_IMPORT_ONLY_USER_LINKS`: Import only one user's links (and not all users links)
 - `HOME_SLACK_LINK`: Link to Slack homepage (could be any link, we don't use this link to crawl data)

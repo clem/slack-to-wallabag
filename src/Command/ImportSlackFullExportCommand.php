@@ -51,10 +51,16 @@ class ImportSlackFullExportCommand extends ContainerAwareCommand
                 "Only import given user's links"
             )
             ->addOption(
-                'exclude-app-channels',
+                'only-channels',
+                'c',
+                InputOption::VALUE_REQUIRED,
+                'Import only these channels and not app import only channels'
+            )
+            ->addOption(
+                'exclude-app-channels-configuration',
                 'X',
                 InputOption::VALUE_NONE,
-                "Don't import app excluded channels"
+                "Don't use app channels configuration"
             )
         ;
     }
@@ -89,12 +95,13 @@ class ImportSlackFullExportCommand extends ContainerAwareCommand
 
         // Initialize
         $container = $this->getContainer();
-        $defaultExcludedChannels = $container->getParameter('app.excluded_channels');
+        $excludedChannels = $container->getParameter('app.excluded_channels');
+        $onlyChannels = $container->getParameter('app.import_only_channels');
 
-        // Get excluded channels
-        $excludedChannels = $input->getOption('excluded-channels') ?? '';
-        if ($input->getOption('exclude-app-channels')) {
-            $excludedChannels = $defaultExcludedChannels;
+        // Get channels configuration from input
+        if ($input->getOption('exclude-app-channels-configuration')) {
+            $excludedChannels = $input->getOption('excluded-channels') ?? '';
+            $onlyChannels = $input->getOption('only-channels') ?? '';
         }
 
         // Check for "only user links"
@@ -108,6 +115,7 @@ class ImportSlackFullExportCommand extends ContainerAwareCommand
         $importStatus = $fullImportHelper->importAllFromFolder($folder, [
             'excluded_channels' => $excludedChannels,
             'only_user' => $onlyUser,
+            'only_channels' => $onlyChannels
         ]);
 
         // Check status

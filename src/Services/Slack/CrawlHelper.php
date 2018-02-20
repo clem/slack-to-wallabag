@@ -20,16 +20,24 @@ class CrawlHelper
     private $excludedChannels;
 
     /**
+     * @var array
+     */
+    private $importOnlyChannels;
+
+    /**
      * Main constructor
      *
      * @param string $slackOauthToken - Slack OAuth Token
      * @param string $excludedChannels - List of excluded channels (separated with comma)
+     * @param string $importOnlyChannels - List of channels (separated with comma) to import only
+     *                                     This option won't override excluded channels
      */
-    public function __construct($slackOauthToken, $excludedChannels)
+    public function __construct($slackOauthToken, $excludedChannels, $importOnlyChannels)
     {
         // Initialize
         $this->slack = new slack($slackOauthToken);
         $this->excludedChannels = explode(',', $excludedChannels);
+        $this->importOnlyChannels = explode(',', $importOnlyChannels);
     }
 
     /**
@@ -62,18 +70,51 @@ class CrawlHelper
             return $channelsList;
         }
 
-        // Check for excluded channels
-        if (!empty($this->excludedChannels)) {
-            // Loop on channels to excluded unwanted channels
-            foreach ($channelsListResponse['channels'] as $channel) {
-                if (!in_array($channel['name'], $this->excludedChannels)) {
-                    $channelsList[] = $channel;
-                }
-            }
-        }
+        // Filter channels list
+        $channelsList = $this->filterUnwantedChannels(
+            $channelsListResponse['channels'],
+            $this->excludedChannels,
+            false
+        );
+        $channelsList = $this->filterUnwantedChannels(
+            $channelsList,
+            $this->importOnlyChannels,
+            true
+        );
 
         // Return channels list
         return $channelsList;
+    }
+
+    /**
+     * Filter unwanted channels from a given channels list
+     *
+     * @param array $channels - Channels list to filter
+     * @param array $filter - Filter list
+     * @param bool $inArrayMustReturn - To filter, in_array must return this value
+     *
+     * @return array - Filtered channels list
+     */
+    private function filterUnwantedChannels(array $channels, array $filter, $inArrayMustReturn = false) : array
+    {
+        // Check channels list
+        if (empty($channels) || empty($filter)) {
+            return $channels;
+        }
+
+        // Initialize
+        $filteredChannels = [];
+
+        // Loop on channels list
+        /* @var array $channel */
+        foreach ($channels as $channel) {
+            if (in_array($channel['name'], $filter) === $inArrayMustReturn) {
+                $filteredChannels[] = $channel;
+            }
+        }
+
+        // Return filtered channels
+        return $filteredChannels;
     }
 
     /**
