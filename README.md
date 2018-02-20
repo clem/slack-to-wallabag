@@ -8,6 +8,8 @@
 This project is a bridge between [Slack](https://slack.com/) and [Wallabag](https://wallabag.org/). 
 It imports/crawls all the posted links on your favorite Slack space, to a given Wallabag server.
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 ## Configuration
 
 Here are the different configurations variables used in the `.env.dist` file.
@@ -16,15 +18,15 @@ Here are the different configurations variables used in the `.env.dist` file.
 
 - `APP_ENV`: Application environment (should be 'prod', unless you want to develop new features or fix bugs)
 - `APP_SECRET`: Your application secret
-- `DATABASE_URL`: Your database url. By default, it's based on postgresql, but you can also use MySQL
-- `APP_LOCALE`: Application locale. 'en' and 'fr' langs are supported
+- `DATABASE_URL`: Your database url. By default, it's based on PostGreSQL, but you can also use MySQL
+- `APP_LOCALE`: Application locale. 'en' and 'fr' languages are supported
 
 ### Slack-to-Wallabag
 
 - `APP_EXCLUDED_CHANNELS`: List of channels (separated by comma - 'general,random') that will NOT be crawled
 - `APP_IMPORT_ONLY_USER_LINKS`: Import only one user's links (and not all users links)
 - `HOME_SLACK_LINK`: Link to Slack homepage (could be any link, we don't use this link to crawl data)
-- `HOME_WALLABAG_LINK`: Link to Wallabag homepage  (could be any link, we don't use this link to export data)
+- `HOME_WALLABAG_LINK`: Link to Wallabag homepage (could be any link, we don't use this link to export data)
 - `HOME_DISPLAYED_DAYS`: Number of displayed days on homepage chart
 
 ### Slack settings
@@ -76,8 +78,13 @@ but you can also install it on your local or distant web server.
 
 ### Deploy on Heroku
 
-To deploy the project on Heroku, you will need a dedicated application.
-If you don't know how to do it, just
+To deploy the project on Heroku, you can use this magic button... 
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+Or follow this tutorial:
+
+First, you will need a dedicated application. If you don't know how to do it, just
 [follow the documentation](https://devcenter.heroku.com/articles/getting-started-with-php#introduction).
 
 Once created, open your favorite terminal app and here we go... 
