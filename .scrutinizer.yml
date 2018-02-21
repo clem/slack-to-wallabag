@@ -145,6 +145,12 @@ tools:
     external_code_coverage: false
 
 build:
+    nodes:
+        analysis:
+            project_setup:
+                override: true
+            tests:
+                override: [php-scrutinizer-run]
     environment:
         timezone: Europe/Paris
         postgresql: false
