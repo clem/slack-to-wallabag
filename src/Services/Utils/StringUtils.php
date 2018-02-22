@@ -78,4 +78,52 @@ class StringUtils
         // Return cleaned title
         return trim($stringToClean);
     }
+
+    /**
+     * Clean a given url if needed
+     *
+     * @param string $urlToClean - Url to clean
+     *
+     * @return string - Cleaned url
+     */
+    public static function cleanUrlIfNeeded($urlToClean) : string
+    {
+        // Initialize: clean url
+        $urlToClean = str_replace('&amp;', '&', $urlToClean);
+
+        // Check url
+        if (strlen($urlToClean) < 255) {
+            // Url is short enough
+            return $urlToClean;
+        }
+
+        // Try to clean url
+        $parsedUrl = parse_url($urlToClean);
+        $url = $parsedUrl['scheme'].'://'.$parsedUrl['host'].$parsedUrl['path'];
+
+        // Check for query
+        if (!isset($parsedUrl['query']) || empty($parsedUrl['query'])) {
+            // Url has no query
+            return $url;
+        }
+
+
+        // Try to add a maximum of query params
+        $parsedQuery = explode('&', $parsedUrl['query']);
+        foreach ($parsedQuery as $queryIndex => $query) {
+            // Initialize
+            $urlFragment = ($queryIndex === 0 ? '?' : '&').$query;
+
+            // Check url length
+            if (strlen($url.$urlFragment) >= 254) {
+                break;
+            }
+
+            // Add fragment to url
+            $url .= $urlFragment;
+        }
+
+        // Return cleaned url
+        return $url;
+    }
 }

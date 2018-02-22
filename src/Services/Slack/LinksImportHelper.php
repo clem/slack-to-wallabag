@@ -22,11 +22,6 @@ class LinksImportHelper extends ImportHelper
     /**
      * @var string
      */
-    private $getTagRegExp = '/(#[^\s]*)\s*/';
-
-    /**
-     * @var string
-     */
     private $channel;
 
     /**
@@ -233,7 +228,7 @@ class LinksImportHelper extends ImportHelper
             }
 
             // Initialize
-            $linkUrl = $this->cleanUrlIfNeeded($this->getLinkUrlFromMessage($message));
+            $linkUrl = StringUtils::cleanUrlIfNeeded($this->getLinkUrlFromMessage($message));
 
             // Check link
             if (!$linkUrl || empty($linkUrl) || !filter_var($linkUrl, FILTER_VALIDATE_URL)) {
@@ -371,54 +366,6 @@ class LinksImportHelper extends ImportHelper
     }
 
     /**
-     * Clean a given url if needed
-     *
-     * @param string $urlToClean - Url to clean
-     *
-     * @return string - Cleaned url
-     */
-    private function cleanUrlIfNeeded($urlToClean) : string
-    {
-        // Initialize: clean url
-        $urlToClean = str_replace('&amp;', '&', $urlToClean);
-
-        // Check url
-        if (strlen($urlToClean) < 255) {
-            // Url is short enough
-            return $urlToClean;
-        }
-
-        // Try to clean url
-        $parsedUrl = parse_url($urlToClean);
-        $url = $parsedUrl['scheme'].'://'.$parsedUrl['host'].$parsedUrl['path'];
-
-        // Check for query
-        if (!isset($parsedUrl['query']) || empty($parsedUrl['query'])) {
-            // Url has no query
-            return $url;
-        }
-
-
-        // Try to add a maximum of query params
-        $parsedQuery = explode('&', $parsedUrl['query']);
-        foreach ($parsedQuery as $queryIndex => $query) {
-            // Initialize
-            $urlFragment = ($queryIndex === 0 ? '?' : '&').$query;
-
-            // Check url length
-            if (strlen($url.$urlFragment) >= 254) {
-                break;
-            }
-
-            // Add fragment to url
-            $url .= $urlFragment;
-        }
-
-        // Return cleaned url
-        return $url;
-    }
-
-    /**
      * Create a SlackLink from a given message
      *
      * @param $message - JSON message as object
@@ -435,7 +382,7 @@ class LinksImportHelper extends ImportHelper
         // Update link
         $slackLink->setChannel($this->channel);
         $url = $this->getLinkUrlFromMessage($message);
-        $slackLink->setUrl($this->cleanUrlIfNeeded($url));
+        $slackLink->setUrl(StringUtils::cleanUrlIfNeeded($url));
 
         // Set link's user
         $slackLinkUserId = array_search($message->user, $this->slackUsersIds);
@@ -449,10 +396,10 @@ class LinksImportHelper extends ImportHelper
         $attachment = ($message->attachments ?? [false])[0];
         if ($attachment) {
             // Update link with attachment info
-            $slackLink->setTitle($this->getTitleFromAttachment($attachment));
+            $slackLink->setTitle(LinkAttachmentsHelper::getTitleFromAttachment($attachment));
 
             // Set tags if needed
-            $tags = $this->getTagsFromAttachment($attachment);
+            $tags = LinkAttachmentsHelper::getTagsFromAttachment($attachment);
             if (!empty($tags)) {
                 $slackLink->setTags(implode(', ', $tags));
             }
@@ -465,61 +412,5 @@ class LinksImportHelper extends ImportHelper
 
         // Return initialized link
         return $slackLink;
-    }
-
-    /**
-     * Get title from a given message attachment
-     *
-     * @param $attachment - Attachment
-     *
-     * @return string - Attachment's title
-     */
-    private function getTitleFromAttachment($attachment) : string
-    {
-        // Check for title
-        if (isset($attachment->title)) {
-            return StringUtils::cleanStringForDatabase($attachment->title);
-        }
-
-        // Check for text
-        if (!isset($attachment->text)) {
-            return '';
-        }
-
-        // Initialize
-        $titleToClean = $attachment->text;
-
-        // Remove tags
-        $tags = $this->getTagsFromAttachment($attachment);
-        $titleToClean = str_replace($tags, '', $titleToClean);
-
-        // Return cleaned title
-        return StringUtils::cleanStringForDatabase($titleToClean);
-    }
-
-    /**
-     * Get tags from a given attachment
-     *
-     * @param $attachment - Attachment
-     *
-     * @return array - Tags list
-     */
-    private function getTagsFromAttachment($attachment) : array
-    {
-        // Check text
-        if (!isset($attachment->text)) {
-            return [];
-        }
-
-        // Initialize
-        preg_match_all($this->getTagRegExp, $attachment->text, $tags);
-
-        // Check tags
-        if (empty($tags)) {
-            return $tags;
-        }
-
-        // Return tags
-        return isset($tags[1]) && !empty($tags[1]) ? $tags[1] : [];
     }
 }
