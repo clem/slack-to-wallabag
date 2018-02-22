@@ -179,7 +179,7 @@ class LinksImportHelper extends ImportHelper
 
         // Try to guess channel from file name
         $pathInfo = explode('/', $filePathInfo['dirname']);
-        if ($pathInfo === false) {
+        if (count($pathInfo) <= 1) {
             throw new \InvalidArgumentException("File path doesn't contains a '/'");
         }
 
