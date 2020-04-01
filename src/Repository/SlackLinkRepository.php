@@ -4,14 +4,14 @@ namespace App\Repository;
 
 use App\Entity\SlackLink;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 class SlackLinkRepository extends ServiceEntityRepository
 {
     /**
      * @inheritdoc
      */
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SlackLink::class);
     }
